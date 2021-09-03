@@ -13,12 +13,12 @@ abstract class BaseUseCase<R : BaseRequest , T>() {
     lateinit var request: R
     private var channel= Channel<Result<T>>(Channel.UNLIMITED)
 
-    suspend fun execute(request: R): Result<T> {
+    open suspend fun execute(request: R): Result<T> {
         this.request = request
 
         val validated = request.validate()
         if (validated.isEmpty()) return run()
-        return Result.Failure(Exception(validated.toSet().toString()))
+        return Result.Failure(exception = Exception(validated.first()))
     }
 
     abstract suspend fun run(): Result<T>

@@ -1,6 +1,5 @@
 package com.github.app.di
 
-import com.github.app.di.NetworkModule.provideCoroutineContext
 import com.github.app.di.NetworkModule.provideGson
 import com.github.app.di.NetworkModule.provideNetworkService
 import com.github.app.di.NetworkModule.provideRetrofit
@@ -14,7 +13,6 @@ import org.koin.dsl.module
 object Modules {
 
     val dataModel = module {
-        factory { provideCoroutineContext() }
         factory { provideGson() }
         single { provideRetrofit(get()) }
         factory { provideNetworkService(get()) }
@@ -29,6 +27,6 @@ object Modules {
     }
 
     val viewModel = module {
-        single{ ListUserRepositoryViewModel(get(), get()) }
+        single{ ListUserRepositoryViewModel(get()) }
     }
 }

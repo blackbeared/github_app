@@ -10,12 +10,12 @@ class GetUserRepositoriesRequest(var username: String?) : BaseRequest {
 
     override fun validate(): List<String> {
         return if(username.isNullOrBlank())
-            listOf("Please enter Username")
+            listOf("Start searching by entering username")
         else
             emptyList()
     }
 }
-class GetUserRepositoriesUseCase(private val githubRepository: GithubRepository): BaseUseCase<GetUserRepositoriesRequest, List<UserRepositoryModel>>() {
+open class GetUserRepositoriesUseCase(private val githubRepository: GithubRepository): BaseUseCase<GetUserRepositoriesRequest, List<UserRepositoryModel>>() {
 
     override suspend fun run() = githubRepository.getUserRepositories(request)
 

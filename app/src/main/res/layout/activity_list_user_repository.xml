@@ -5,6 +5,7 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.github.domain.utils.Status"/>
         <variable
             name="viewmodel"
             type="com.github.presentation.search_repository.viewmodel.ListUserRepositoryViewModel" />
@@ -43,7 +44,7 @@
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@string/image_button"
-                android:onClick="@{ (v) -> viewmodel.fetchUserRepositories(v) }"
+                android:onClick="@{ (v) -> viewmodel.fetchUserRepositories() }"
                 android:padding="10dp"
                 android:src="@android:drawable/ic_menu_search"
                 app:tint="@color/white" />
@@ -56,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/appbarLayout"
-            android:visibility="@{ viewmodel.loading ? View.GONE : View.VISIBLE }"
+            android:visibility="@{ viewmodel.repositories.status == Status.SUCCESS ? View.VISIBLE : View.GONE }"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -64,8 +65,14 @@
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
             android:layout_height="wrap_content"
-            android:visibility="@{ viewmodel.loading ? View.VISIBLE : View.GONE }"
-            />
+            android:visibility="@{ viewmodel.repositories.status == Status.LOADING ? View.VISIBLE : View.GONE }" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{ viewmodel.repositories.status == Status.ERROR ? View.VISIBLE : View.GONE }"
+            android:text="@{ viewmodel.repositories.message }"/>
 
     </RelativeLayout>
 </layout>

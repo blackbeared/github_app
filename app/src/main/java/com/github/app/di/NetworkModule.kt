@@ -12,8 +12,6 @@ import kotlin.coroutines.CoroutineContext
 
 object NetworkModule {
 
-    fun provideCoroutineContext() =  Dispatchers.Default as CoroutineContext
-
     fun provideNetworkService(retrofit: Retrofit): GithubService = retrofit.create(GithubService::class.java)
 
     fun provideRetrofit(gson: Gson): Retrofit {

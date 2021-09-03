@@ -19,6 +19,7 @@ abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes val resId: Int) : Ap
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         binding = DataBindingUtil.setContentView(this@BaseActivity, resId) as T
+        binding.lifecycleOwner = this
         init()
     }
 }
